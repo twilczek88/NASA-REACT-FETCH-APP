@@ -1,0 +1,22 @@
+//colors
+//from background picture
+$palette: (
+    col1: #ffe8ba,
+    col2: #976a01,
+    col3: #9c582f, //jasny
+    col4: #323232, //ciemny
+    col5: #ad4400,
+    col6: #5a1c00,
+    col7: #959977  //komplementarny
+);
+
+$mainCol: map-get($palette, col3);
+$compCol: map-get($palette, col7);
+$darkCol: map-get($palette, col4);
+$background-color: lighten(map-get($palette, col7), 30);
+
+//media queries
+$media: (
+'(max-width: 340px)',
+'(max-width: 640px)'
+);
