@@ -10313,6 +10313,10 @@ var _react = __webpack_require__(24);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _api = __webpack_require__(197);
+
+var _api2 = _interopRequireDefault(_api);
+
 var _Header = __webpack_require__(87);
 
 var _Header2 = _interopRequireDefault(_Header);
@@ -10320,6 +10324,10 @@ var _Header2 = _interopRequireDefault(_Header);
 var _Footer = __webpack_require__(86);
 
 var _Footer2 = _interopRequireDefault(_Footer);
+
+var _Welcome = __webpack_require__(198);
+
+var _Welcome2 = _interopRequireDefault(_Welcome);
 
 var _Main = __webpack_require__(88);
 
@@ -10333,30 +10341,53 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Layout = function (_React$Component) {
-    _inherits(Layout, _React$Component);
+var Layout = function (_Component) {
+    _inherits(Layout, _Component);
 
-    function Layout() {
+    function Layout(props) {
         _classCallCheck(this, Layout);
 
-        return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+
+        _this.onStart = function () {
+            _this.setState({ start: true });
+        };
+
+        _this.state = {
+            start: false,
+            links: []
+        };
+        return _this;
     }
 
     _createClass(Layout, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            _api2.default.getLinks().then(function (r) {
+                _this2.setState({ links: r });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'wrapper' },
-                _react2.default.createElement(_Header2.default, null),
-                _react2.default.createElement(_Main2.default, null),
-                _react2.default.createElement(_Footer2.default, null)
-            );
+            if (this.state.start) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'wrapper' },
+                    _react2.default.createElement(_Header2.default, null),
+                    _react2.default.createElement(_Main2.default, { links: this.state.links }),
+                    _react2.default.createElement(_Footer2.default, null)
+                );
+            } else {
+                return _react2.default.createElement(_Welcome2.default, { onStart: this.onStart });
+            }
         }
     }]);
 
     return Layout;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = Layout;
 
@@ -10490,6 +10521,10 @@ var _react = __webpack_require__(24);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _api = __webpack_require__(197);
+
+var _api2 = _interopRequireDefault(_api);
+
 var _Menu = __webpack_require__(90);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -10515,46 +10550,15 @@ var Main = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
         _this.state = {
-            rover: ['curiosity', 'opportunity', 'spirit']
+            rover: ['curiosity', 'opportunity', 'spirit'],
+            links: []
         };
         return _this;
     }
 
-    // getToday = () => {
-    //     const day = new Date();
-    //     const curDay = 'dupa';
-    //     const month = 'dupa';
-    //     if (day.getMonth()<10) {
-    //         return `${day.getFullYear()}-0${day.getMonth()+1}-${day.getDate()-2}`;
-    //     } else {
-    //         return `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()-2}`;
-    //     }
-    // };
-    //
-    // getLink = () => {
-    //     const today = this.getToday();
-    //     const key = 'y6ZUglHCMowWyfCZnZjTnUbFozGToNjOWX28dhVY';
-    //     let rover = this.state.rover[0];
-    //
-    //     return `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${today}&api_key=${key}`;
-    // }
-
-
     _createClass(Main, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            // const today = this.getToday();
-            // const apiKey = 'y6ZUglHCMowWyfCZnZjTnUbFozGToNjOWX28dhVY';
-            // const rover = this.state.rover[0];
-            // const link = this.getLink();
-            // fetch(link)
-            //     .then(d => d.json())
-            //     .then(d => { console.log(d) });
-        }
-    }, {
         key: 'render',
         value: function render() {
-            var tekst1 = 'gosia samosia';
             return _react2.default.createElement(
                 'main',
                 null,
@@ -10608,6 +10612,7 @@ var Gallery = function (_React$Component) {
 
 
         //musi wypluwać tyle divów, ile jest dni w galerii
+        //czyli... trzeba zrobić tutaj gdzieś tablicę... i wrzucić do niej odpowiednie zapytania
 
         value: function render() {
             return _react2.default.createElement(
@@ -23857,6 +23862,102 @@ __webpack_require__(84);
 __webpack_require__(82);
 module.exports = __webpack_require__(83);
 
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports) {
+
+const api = {
+    getLinks(){
+        const start = `https://api.nasa.gov/mars-photos/api/v1`;
+        const key = 'y6ZUglHCMowWyfCZnZjTnUbFozGToNjOWX28dhVY';
+        const url = `${start}/manifests/curiosity?api_key=${key}`;
+        let result;
+
+        return fetch(url)
+        .then(r => r.json())
+        .then(r => {
+            return fetch(`${start}/rovers/curiosity/photos?earth_date=${r.photo_manifest.max_date}&api_key=${key}`)
+            .then(r => r.json())
+            .then(r => r.photos);
+        });
+    }
+};
+
+module.exports = api;
+
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(24);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Welcome = function (_Component) {
+    _inherits(Welcome, _Component);
+
+    function Welcome(props) {
+        _classCallCheck(this, Welcome);
+
+        var _this = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
+
+        _this.handleStartClick = function () {
+            if (typeof _this.props.onStart == 'function') {
+                _this.props.onStart();
+            } else {
+                console.error('no function parsed');
+            }
+        };
+
+        _this.state = {
+            links: []
+        };
+        return _this;
+    }
+
+    _createClass(Welcome, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'This week on Mars'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'start-button', onClick: this.handleStartClick },
+                    'Start'
+                )
+            );
+        }
+    }]);
+
+    return Welcome;
+}(_react.Component);
+
+exports.default = Welcome;
 
 /***/ })
 /******/ ]);
