@@ -7,6 +7,7 @@ import Welcome from './Welcome.jsx';
 import Main from './Main.jsx'
 
 export default class Layout extends Component {
+
     constructor(props) {
         super(props);
         this.state = {

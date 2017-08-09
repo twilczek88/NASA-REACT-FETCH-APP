@@ -10628,12 +10628,6 @@ var Gallery = function (_Component) {
             console.log('right clicked');
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
-    // constructor(props){
-    //     super(props);
-    //     // this.state = {
-    //     //     links: []
-    //     // }
-    // }
 
     _createClass(Gallery, [{
         key: 'render',
@@ -10641,7 +10635,6 @@ var Gallery = function (_Component) {
             var images = this.props.links.slice().map(function (image) {
                 return _react2.default.createElement(_Image2.default, { img: image, key: image.id });
             });
-            console.log(this.props.links[0]);
 
             return _react2.default.createElement(
                 'div',
@@ -24052,32 +24045,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Image = function (_Component) {
     _inherits(Image, _Component);
 
-    function Image() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
+    function Image(props) {
         _classCallCheck(this, Image);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+        var _this = _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).call(this, props));
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Image.__proto__ || Object.getPrototypeOf(Image)).call.apply(_ref, [this].concat(args))), _this), _this.convertDate = function () {
-            var date = _this.props.img.earth_date.split('-');
-            var yyyy = Number(date[0]),
-                mm = Number(date[1] - 1),
-                dd = Number(date[2]);
+        _this.convertDate = function (date) {
+            date = date.split('-');
+            return new Date(Number(date[0]), Number(date[1] - 1), Number(date[2])).toDateString();
+        };
 
-            return new Date(yyyy, mm, dd).toDateString();
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        _this.state = {
+            pending: true
+        };
+        return _this;
     }
 
     _createClass(Image, [{
         key: 'render',
         value: function render() {
             var img = this.props.img;
-            var date = this.convertDate();
+            var photoDate = this.convertDate(img.earth_date);
+            var startDate = this.convertDate(img.rover.landing_date);
 
             return _react2.default.createElement(
                 'div',
@@ -24089,18 +24078,23 @@ var Image = function (_Component) {
                     _react2.default.createElement(
                         'p',
                         null,
-                        img.rover.name,
-                        ' ',
-                        date,
+                        photoDate,
                         ' ',
                         _react2.default.createElement('br', null),
+                        img.rover.name,
+                        ' ',
                         img.camera.full_name,
+                        ' ',
+                        _react2.default.createElement('br', null),
+                        'Landing date: ',
+                        startDate,
                         ' ',
                         _react2.default.createElement('br', null),
                         'Mission status: ',
                         img.rover.status
                     )
-                )
+                ),
+                _react2.default.createElement('hr', null)
             );
         }
     }]);

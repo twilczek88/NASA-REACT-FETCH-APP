@@ -1,29 +1,38 @@
 import React, {Component} from 'react';
 
 export default class Image extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            pending: true
+        }
+    }
 
-    convertDate = () => {
-        const date = this.props.img.earth_date.split('-');
-        let yyyy = Number(date[0]),
-            mm = Number(date[1]-1),
-            dd = Number(date[2]);
-
-        return (new Date(yyyy,mm,dd).toDateString());
+    convertDate = date => {
+        date = date.split('-');
+        return new Date(
+            Number(date[0]),
+            Number(date[1]-1),
+            Number(date[2]))
+        .toDateString();
     }
 
     render(){
         const img = this.props.img;
-        const date = this.convertDate();
+        const photoDate = this.convertDate(img.earth_date);
+        const startDate = this.convertDate(img.rover.landing_date);
 
         return <div>
             <img src={img.img_src}/>
             <div>
                 <p>
-                    {img.rover.name} {date} <br/>
-                    {img.camera.full_name} <br/>
+                    {photoDate} <br/>
+                    {img.rover.name} {img.camera.full_name} <br/>
+                    Landing date: {startDate} <br/>
                     Mission status: {img.rover.status}
                 </p>
             </div>
+            <hr/>
         </div>
     }
 }

@@ -4,6 +4,7 @@ import Gallery from './Main/Gallery.jsx';
 import api from '../utilities/api.js';
 
 export default class Main extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
