@@ -11,20 +11,11 @@ export default class Layout extends Component {
         super(props);
         this.state = {
             start: false,
-            links: []
         }
     }
 
     onStart = () => {
         this.setState({ start: true });
-    }
-
-    componentWillMount(){
-        api.getLinks().then( r => {
-            this.setState({ links: r });
-        });
-
-
     }
 
     render() {

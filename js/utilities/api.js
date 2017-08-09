@@ -3,6 +3,7 @@ const api = {
         const start = `https://api.nasa.gov/mars-photos/api/v1`;
         const key = 'y6ZUglHCMowWyfCZnZjTnUbFozGToNjOWX28dhVY';
         const url = `${start}/manifests/curiosity?api_key=${key}`;
+
         let result;
 
         return fetch(url)

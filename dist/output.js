@@ -10354,22 +10354,12 @@ var Layout = function (_Component) {
         };
 
         _this.state = {
-            start: false,
-            links: []
+            start: false
         };
         return _this;
     }
 
     _createClass(Layout, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            var _this2 = this;
-
-            _api2.default.getLinks().then(function (r) {
-                _this2.setState({ links: r });
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
             if (this.state.start) {
@@ -10521,10 +10511,6 @@ var _react = __webpack_require__(24);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _api = __webpack_require__(197);
-
-var _api2 = _interopRequireDefault(_api);
-
 var _Menu = __webpack_require__(90);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -10547,13 +10533,7 @@ var Main = function (_React$Component) {
     function Main(props) {
         _classCallCheck(this, Main);
 
-        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
-
-        _this.state = {
-            rover: ['curiosity', 'opportunity', 'spirit'],
-            links: []
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
     }
 
     _createClass(Main, [{
@@ -10563,7 +10543,7 @@ var Main = function (_React$Component) {
                 'main',
                 null,
                 _react2.default.createElement(_Menu2.default, null),
-                _react2.default.createElement(_Gallery2.default, null)
+                _react2.default.createElement(_Gallery2.default, { links: this.props.links })
             );
         }
     }]);
@@ -10590,6 +10570,14 @@ var _react = __webpack_require__(24);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _api = __webpack_require__(197);
+
+var _api2 = _interopRequireDefault(_api);
+
+var _Image = __webpack_require__(199);
+
+var _Image2 = _interopRequireDefault(_Image);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10598,33 +10586,49 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Gallery = function (_React$Component) {
-    _inherits(Gallery, _React$Component);
+var Gallery = function (_Component) {
+    _inherits(Gallery, _Component);
 
-    function Gallery() {
+    function Gallery(props) {
         _classCallCheck(this, Gallery);
 
-        return _possibleConstructorReturn(this, (Gallery.__proto__ || Object.getPrototypeOf(Gallery)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Gallery.__proto__ || Object.getPrototypeOf(Gallery)).call(this, props));
+
+        _this.state = {
+            links: []
+        };
+        return _this;
     }
 
     _createClass(Gallery, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            _api2.default.getLinks().then(function (r) {
+                _this2.setState({ links: r });
+            });
+        }
+    }, {
         key: 'render',
-
-
-        //musi wypluwać tyle divów, ile jest dni w galerii
-        //czyli... trzeba zrobić tutaj gdzieś tablicę... i wrzucić do niej odpowiednie zapytania
-
         value: function render() {
+            var images = this.state.links.slice().map(function (image) {
+                return _react2.default.createElement(_Image2.default, { img: image, key: image.id });
+            });
+            console.log(this.state.links[0]);
+
             return _react2.default.createElement(
-                'p',
+                'div',
                 null,
-                'Jestem Galeri\u0105'
+                _react2.default.createElement('div', { className: 'left-arrow' }),
+                images,
+                _react2.default.createElement('div', { className: 'right-arrow' })
             );
         }
     }]);
 
     return Gallery;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = Gallery;
 
@@ -23872,6 +23876,7 @@ const api = {
         const start = `https://api.nasa.gov/mars-photos/api/v1`;
         const key = 'y6ZUglHCMowWyfCZnZjTnUbFozGToNjOWX28dhVY';
         const url = `${start}/manifests/curiosity?api_key=${key}`;
+
         let result;
 
         return fetch(url)
@@ -23928,9 +23933,6 @@ var Welcome = function (_Component) {
             }
         };
 
-        _this.state = {
-            links: []
-        };
         return _this;
     }
 
@@ -23958,6 +23960,88 @@ var Welcome = function (_Component) {
 }(_react.Component);
 
 exports.default = Welcome;
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(24);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Image = function (_Component) {
+    _inherits(Image, _Component);
+
+    function Image() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Image);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Image.__proto__ || Object.getPrototypeOf(Image)).call.apply(_ref, [this].concat(args))), _this), _this.convertDate = function () {
+            var date = _this.props.img.earth_date.split('-');
+            var yyyy = Number(date[0]),
+                mm = Number(date[1] - 1),
+                dd = Number(date[2]);
+
+            return new Date(yyyy, mm, dd).toDateString();
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(Image, [{
+        key: 'render',
+        value: function render() {
+            var img = this.props.img;
+            var date = this.convertDate();
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement('img', { src: img.img_src }),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        img.rover.name,
+                        ' ',
+                        date,
+                        ' ',
+                        _react2.default.createElement('br', null),
+                        img.camera.full_name
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Image;
+}(_react.Component);
+
+exports.default = Image;
 
 /***/ })
 /******/ ]);
