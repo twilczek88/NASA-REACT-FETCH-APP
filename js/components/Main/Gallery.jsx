@@ -1,31 +1,31 @@
 import React, {Component} from 'react';
-import api from '../../utilities/api.js';
 import Image from './Image.jsx';
 
 export default class Gallery extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            links: []
-        }
+    // constructor(props){
+    //     super(props);
+    //     // this.state = {
+    //     //     links: []
+    //     // }
+    // }
+
+    handleLeftClick = () => {
+        console.log('left clicked');
     }
 
-    componentWillMount(){
-        api.getLinks()
-        .then( r => {
-            this.setState({ links: r })
-        })
+    handleRightClick = () => {
+        console.log('right clicked');
     }
 
     render() {
-        let images = this.state.links.slice()
+        let images = this.props.links.slice()
         .map(image=> <Image img={image} key={image.id}/>);
-        console.log(this.state.links[0]);
+        console.log(this.props.links[0]);
 
         return <div>
-            <div className='left-arrow'></div>
+            <div className='left-arrow' onClick={ this.handleLeftClick }/>
             {images}
-            <div className='right-arrow'></div>
+            <div className='right-arrow' onClick={ this.handleRightClick }/>
         </div>
     }
 }

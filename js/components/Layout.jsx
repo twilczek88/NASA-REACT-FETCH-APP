@@ -22,7 +22,7 @@ export default class Layout extends Component {
         if (this.state.start) {
             return <div className='wrapper'>
                 <Header/>
-                <Main links = {this.state.links}/>
+                <Main/>
                 <Footer/>
             </div>
         } else {

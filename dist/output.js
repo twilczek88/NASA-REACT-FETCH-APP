@@ -9775,8 +9775,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_React$Component) {
-    _inherits(App, _React$Component);
+var App = function (_Component) {
+    _inherits(App, _Component);
 
     function App() {
         _classCallCheck(this, App);
@@ -9792,7 +9792,7 @@ var App = function (_React$Component) {
     }]);
 
     return App;
-}(_react2.default.Component);
+}(_react.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
     _reactDom2.default.render(_react2.default.createElement(App, null), document.querySelector('#app'));
@@ -10367,7 +10367,7 @@ var Layout = function (_Component) {
                     'div',
                     { className: 'wrapper' },
                     _react2.default.createElement(_Header2.default, null),
-                    _react2.default.createElement(_Main2.default, { links: this.state.links }),
+                    _react2.default.createElement(_Main2.default, null),
                     _react2.default.createElement(_Footer2.default, null)
                 );
             } else {
@@ -10406,8 +10406,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Footer = function (_React$Component) {
-    _inherits(Footer, _React$Component);
+var Footer = function (_Component) {
+    _inherits(Footer, _Component);
 
     function Footer() {
         _classCallCheck(this, Footer);
@@ -10431,7 +10431,7 @@ var Footer = function (_React$Component) {
     }]);
 
     return Footer;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = Footer;
 
@@ -10460,8 +10460,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Header = function (_React$Component) {
-    _inherits(Header, _React$Component);
+var Header = function (_Component) {
+    _inherits(Header, _Component);
 
     function Header() {
         _classCallCheck(this, Header);
@@ -10490,7 +10490,7 @@ var Header = function (_React$Component) {
     }]);
 
     return Header;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = Header;
 
@@ -10519,6 +10519,10 @@ var _Gallery = __webpack_require__(89);
 
 var _Gallery2 = _interopRequireDefault(_Gallery);
 
+var _api = __webpack_require__(197);
+
+var _api2 = _interopRequireDefault(_api);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10527,29 +10531,51 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Main = function (_React$Component) {
-    _inherits(Main, _React$Component);
+var Main = function (_Component) {
+    _inherits(Main, _Component);
 
     function Main(props) {
         _classCallCheck(this, Main);
 
-        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+
+        _this.changeRover = function (rover) {
+            _this.setState({ rover: rover });
+            _api2.default.getLinks(rover).then(function (r) {
+                _this.setState({ links: r });
+            });
+        };
+
+        _this.state = {
+            links: [],
+            rover: 'curiosity'
+        };
+        return _this;
     }
 
     _createClass(Main, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            _api2.default.getLinks(this.state.rover).then(function (r) {
+                _this2.setState({ links: r });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 'main',
                 null,
-                _react2.default.createElement(_Menu2.default, null),
-                _react2.default.createElement(_Gallery2.default, { links: this.props.links })
+                _react2.default.createElement(_Menu2.default, { changeRover: this.changeRover }),
+                _react2.default.createElement(_Gallery2.default, { links: this.state.links })
             );
         }
     }]);
 
     return Main;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = Main;
 
@@ -10570,10 +10596,6 @@ var _react = __webpack_require__(24);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _api = __webpack_require__(197);
-
-var _api2 = _interopRequireDefault(_api);
-
 var _Image = __webpack_require__(199);
 
 var _Image2 = _interopRequireDefault(_Image);
@@ -10589,40 +10611,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Gallery = function (_Component) {
     _inherits(Gallery, _Component);
 
-    function Gallery(props) {
+    function Gallery() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, Gallery);
 
-        var _this = _possibleConstructorReturn(this, (Gallery.__proto__ || Object.getPrototypeOf(Gallery)).call(this, props));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
 
-        _this.state = {
-            links: []
-        };
-        return _this;
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Gallery.__proto__ || Object.getPrototypeOf(Gallery)).call.apply(_ref, [this].concat(args))), _this), _this.handleLeftClick = function () {
+            console.log('left clicked');
+        }, _this.handleRightClick = function () {
+            console.log('right clicked');
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
+    // constructor(props){
+    //     super(props);
+    //     // this.state = {
+    //     //     links: []
+    //     // }
+    // }
 
     _createClass(Gallery, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            var _this2 = this;
-
-            _api2.default.getLinks().then(function (r) {
-                _this2.setState({ links: r });
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
-            var images = this.state.links.slice().map(function (image) {
+            var images = this.props.links.slice().map(function (image) {
                 return _react2.default.createElement(_Image2.default, { img: image, key: image.id });
             });
-            console.log(this.state.links[0]);
+            console.log(this.props.links[0]);
 
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement('div', { className: 'left-arrow' }),
+                _react2.default.createElement('div', { className: 'left-arrow', onClick: this.handleLeftClick }),
                 images,
-                _react2.default.createElement('div', { className: 'right-arrow' })
+                _react2.default.createElement('div', { className: 'right-arrow', onClick: this.handleRightClick })
             );
         }
     }]);
@@ -10657,28 +10683,65 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Menu = function (_React$Component) {
-    _inherits(Menu, _React$Component);
+var Menu = function (_Component) {
+    _inherits(Menu, _Component);
 
     function Menu() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, Menu);
 
-        return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Menu.__proto__ || Object.getPrototypeOf(Menu)).call.apply(_ref, [this].concat(args))), _this), _this.handleRoverChange = function (rover) {
+            if (typeof _this.props.changeRover == 'function') {
+                _this.props.changeRover(rover);
+            } else {
+                console.error('no function parsed in <Menu/>');
+            }
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Menu, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
-                'p',
+                'ul',
                 null,
-                'Jestem Menu'
+                'Change rover:',
+                _react2.default.createElement(
+                    'li',
+                    { onClick: function onClick(e) {
+                            return _this2.handleRoverChange('curiosity');
+                        } },
+                    'Curiosity'
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { onClick: function onClick(e) {
+                            return _this2.handleRoverChange('opportunity');
+                        } },
+                    'Opportunity'
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { onClick: function onClick(e) {
+                            return _this2.handleRoverChange('spirit');
+                        } },
+                    'Spirit'
+                )
             );
         }
     }]);
 
     return Menu;
-}(_react2.default.Component);
+}(_react.Component);
 
 exports.default = Menu;
 
@@ -23872,17 +23935,17 @@ module.exports = __webpack_require__(83);
 /***/ (function(module, exports) {
 
 const api = {
-    getLinks(){
+    getLinks(rover = 'curiosity'){
         const start = `https://api.nasa.gov/mars-photos/api/v1`;
         const key = 'y6ZUglHCMowWyfCZnZjTnUbFozGToNjOWX28dhVY';
-        const url = `${start}/manifests/curiosity?api_key=${key}`;
+        const url = `${start}/manifests/${rover}?api_key=${key}`;
 
         let result;
 
         return fetch(url)
         .then(r => r.json())
         .then(r => {
-            return fetch(`${start}/rovers/curiosity/photos?earth_date=${r.photo_manifest.max_date}&api_key=${key}`)
+            return fetch(`${start}/rovers/${rover}/photos?earth_date=${r.photo_manifest.max_date}&api_key=${key}`)
             .then(r => r.json())
             .then(r => r.photos);
         });
@@ -24031,7 +24094,11 @@ var Image = function (_Component) {
                         date,
                         ' ',
                         _react2.default.createElement('br', null),
-                        img.camera.full_name
+                        img.camera.full_name,
+                        ' ',
+                        _react2.default.createElement('br', null),
+                        'Mission status: ',
+                        img.rover.status
                     )
                 )
             );

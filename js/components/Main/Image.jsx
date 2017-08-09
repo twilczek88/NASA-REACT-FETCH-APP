@@ -20,7 +20,8 @@ export default class Image extends Component {
             <div>
                 <p>
                     {img.rover.name} {date} <br/>
-                    {img.camera.full_name}
+                    {img.camera.full_name} <br/>
+                    Mission status: {img.rover.status}
                 </p>
             </div>
         </div>
