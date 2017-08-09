@@ -8,30 +8,40 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pending: true,
             links: [],
             rover: 'curiosity'
         }
     }
 
     changeRover = rover => {
-        this.setState({rover: rover});
+        this.setState({
+            rover: rover,
+            pending: true
+        });
         api.getLinks(rover)
         .then( r => {
-            this.setState({ links: r })
+            this.setState({
+                links: r,
+                pending: false
+            });
         });
     }
 
     componentWillMount(){
         api.getLinks(this.state.rover)
         .then( r => {
-            this.setState({ links: r })
+            this.setState({
+                links: r,
+                pending: false
+            });
         });
     }
 
     render() {
         return <main>
             <Menu changeRover = {this.changeRover}/>
-            <Gallery links = {this.state.links}/>
+            <Gallery links = {this.state.links} pending = {this.state.pending}/>
         </main>
     }
 }

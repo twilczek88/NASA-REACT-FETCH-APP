@@ -10540,13 +10540,20 @@ var Main = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
         _this.changeRover = function (rover) {
-            _this.setState({ rover: rover });
+            _this.setState({
+                rover: rover,
+                pending: true
+            });
             _api2.default.getLinks(rover).then(function (r) {
-                _this.setState({ links: r });
+                _this.setState({
+                    links: r,
+                    pending: false
+                });
             });
         };
 
         _this.state = {
+            pending: true,
             links: [],
             rover: 'curiosity'
         };
@@ -10559,7 +10566,10 @@ var Main = function (_Component) {
             var _this2 = this;
 
             _api2.default.getLinks(this.state.rover).then(function (r) {
-                _this2.setState({ links: r });
+                _this2.setState({
+                    links: r,
+                    pending: false
+                });
             });
         }
     }, {
@@ -10569,7 +10579,7 @@ var Main = function (_Component) {
                 'main',
                 null,
                 _react2.default.createElement(_Menu2.default, { changeRover: this.changeRover }),
-                _react2.default.createElement(_Gallery2.default, { links: this.state.links })
+                _react2.default.createElement(_Gallery2.default, { links: this.state.links, pending: this.state.pending })
             );
         }
     }]);
@@ -10636,13 +10646,21 @@ var Gallery = function (_Component) {
                 return _react2.default.createElement(_Image2.default, { img: image, key: image.id });
             });
 
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement('div', { className: 'left-arrow', onClick: this.handleLeftClick }),
-                images,
-                _react2.default.createElement('div', { className: 'right-arrow', onClick: this.handleRightClick })
-            );
+            if (this.props.pending) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    '...PENDING...'
+                );
+            } else {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('div', { className: 'left-arrow', onClick: this.handleLeftClick }),
+                    images,
+                    _react2.default.createElement('div', { className: 'right-arrow', onClick: this.handleRightClick })
+                );
+            }
         }
     }]);
 

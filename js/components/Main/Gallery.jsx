@@ -15,10 +15,14 @@ export default class Gallery extends Component {
         let images = this.props.links.slice()
         .map(image => <Image img={image} key={image.id}/>);
 
-        return <div>
-            <div className='left-arrow' onClick={ this.handleLeftClick }/>
-            {images}
-            <div className='right-arrow' onClick={ this.handleRightClick }/>
-        </div>
+        if(this.props.pending) {
+            return <div>...PENDING...</div>
+        } else {
+            return <div>
+                <div className='left-arrow' onClick={ this.handleLeftClick }/>
+                {images}
+                <div className='right-arrow' onClick={ this.handleRightClick }/>
+            </div>
+        }
     }
 }
