@@ -49,13 +49,10 @@ export default class Gallery extends Component {
         const activeImage = this.state.activeImage;
         const bubbles = [];
 
-        const handleBubbleClick = (i) => {
-            this.refreshGallery(i);
-        }
 
         for(let i=0; i<=count; i++){
             if(i != activeImage){
-                bubbles.push(<div className='bubble' key={i} onClick={e => handleBubbleClick(i)}/>);
+                bubbles.push(<div className='bubble' key={i} onClick={e => this.refreshGallery(i)}/>);
             } else {
                 bubbles.push(<div className='bubble-active' key={i}/>);
             }
@@ -76,9 +73,25 @@ export default class Gallery extends Component {
     render() {
         const images = this.props.links.map((image, i) => <Image id={ i } img={ image } key={ image.id }/>);
         const bubbles = this.drawBubbles();
+        const spinner = <div className="sk-fading-circle">
+            <div className="sk-circle1 sk-circle"></div>
+            <div className="sk-circle2 sk-circle"></div>
+            <div className="sk-circle3 sk-circle"></div>
+            <div className="sk-circle4 sk-circle"></div>
+            <div className="sk-circle5 sk-circle"></div>
+            <div className="sk-circle6 sk-circle"></div>
+            <div className="sk-circle7 sk-circle"></div>
+            <div className="sk-circle8 sk-circle"></div>
+            <div className="sk-circle9 sk-circle"></div>
+            <div className="sk-circle10 sk-circle"></div>
+            <div className="sk-circle11 sk-circle"></div>
+            <div className="sk-circle12 sk-circle"></div>
+        </div>
 
         if(this.props.pending) {
-            return <section className='carousel-spinner'><div className='spinner'>...PENDING...</div></section>
+            return <section className='carousel-spinner'>
+                {spinner}
+            </section>
         } else {
             return <section className='carousel'>
                 <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> lewa </div>
