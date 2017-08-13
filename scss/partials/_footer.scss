@@ -1,0 +1,6 @@
+footer{
+    @extend %flexrow;
+    ul {
+        @extend %flexrow;
+    }
+}

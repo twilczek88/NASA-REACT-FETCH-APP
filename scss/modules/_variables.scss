@@ -20,3 +20,10 @@ $media: (
 '(max-width: 340px)',
 '(max-width: 640px)'
 );
+
+//classes
+%flexrow{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}

@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require('webpack');
 
 module.exports = {
-    entry: ['whatwg-fetch', './js/input.jsx', './scss/main.scss'],
+    entry: ['whatwg-fetch', './js/input.jsx', './scss/bundle.scss'],
     output: {
         path: path.resolve("dist"),
         filename: "output.js"

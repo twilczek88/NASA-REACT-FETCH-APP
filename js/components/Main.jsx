@@ -15,17 +15,19 @@ export default class Main extends Component {
     }
 
     changeRover = rover => {
-        this.setState({
-            rover: rover,
-            pending: true
-        });
-        api.getLinks(rover)
-        .then( r => {
+        if(rover != this.state.rover){
             this.setState({
-                links: r,
-                pending: false
+                rover: rover,
+                pending: true
             });
-        });
+            api.getLinks(rover)
+            .then( r => {
+                this.setState({
+                    links: r,
+                    pending: false
+                });
+            });
+        }
     }
 
     componentWillMount(){
