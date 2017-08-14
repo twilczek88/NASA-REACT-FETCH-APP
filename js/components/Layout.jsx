@@ -11,7 +11,7 @@ export default class Layout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            start: true,
+            start: false,
         }
     }
 
@@ -22,7 +22,6 @@ export default class Layout extends Component {
     render() {
         if (this.state.start) {
             return <div className='wrapper'>
-                <Header/>
                 <Main/>
                 <Footer/>
             </div>
