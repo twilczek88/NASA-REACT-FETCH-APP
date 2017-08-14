@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Printext from '../../utilities/Printext.jsx';
 
 export default class Menu extends Component {
     constructor(props){
