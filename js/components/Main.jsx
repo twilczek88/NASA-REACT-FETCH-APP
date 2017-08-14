@@ -3,6 +3,7 @@ import Menu from './Main/Menu.jsx';
 import Gallery from './Main/Gallery.jsx';
 import api from '../utilities/api.js';
 
+
 export default class Main extends Component {
 
     constructor(props) {
@@ -10,7 +11,12 @@ export default class Main extends Component {
         this.state = {
             pending: true,
             links: [],
-            rover: 'curiosity'
+            rover: 'curiosity',
+            info : {
+                rover : '',
+                date : '',
+                status : ''
+            }
         }
     }
 
@@ -18,13 +24,18 @@ export default class Main extends Component {
         if(rover != this.state.rover){
             this.setState({
                 rover: rover,
-                pending: true
+                pending: true,
             });
             api.getLinks(rover)
             .then( r => {
                 this.setState({
-                    links: r,
-                    pending: false
+                    links : r,
+                    pending : false,
+                    info : {
+                        rover : r[0].rover.name,
+                        date : r[0].rover.landing_date,
+                        status : r[0].rover.status
+                    }
                 });
             });
         }
@@ -34,16 +45,22 @@ export default class Main extends Component {
         api.getLinks(this.state.rover)
         .then( r => {
             this.setState({
-                links: r,
-                pending: false
+                links : r,
+                pending : false,
+                info : {
+                    rover : r[0].rover.name,
+                    date : r[0].rover.landing_date,
+                    status : r[0].rover.status
+                }
             });
         });
     }
 
     render() {
+        console.log(this.state.info);
         return <main>
-            <Menu changeRover = {this.changeRover}/>
-            <Gallery links = {this.state.links} pending = {this.state.pending}/>
+            <Menu changeRover = { this.changeRover } info = { this.state.info } pending = { this.state.pending }/>
+            <Gallery links = { this.state.links } pending = { this.state.pending }/>
         </main>
     }
 }
