@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import Printext from '../../utilities/Printext.jsx';
 
 export default class Menu extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            isMenuShown : false
-        }
     }
 
-    toggleMenu = () => {
-        this.setState({ isMenuShown : !this.state.isMenuShown });
+    convertDate = date => {
+        date = date.split('-');
+        return new Date(
+            Number(date[0]),
+            Number(date[1]-1),
+            Number(date[2]))
+        .toDateString();
     }
 
     handleRoverChange = rover => {
@@ -21,17 +24,32 @@ export default class Menu extends Component {
     }
 
     render() {
-        if(this.state.isMenuShown){
-            return <ul className='menu' onClick={ this.toggleMenu }>
-                Change rover
-                <li onClick={ e => this.handleRoverChange('curiosity') }>Curiosity</li>
-                <li onClick={ e => this.handleRoverChange('opportunity') }>Opportunity</li>
-                <li onClick={ e => this.handleRoverChange('spirit') }>Spirit</li>
-            </ul>
+
+        let date,
+            rover,
+            status;
+
+        if (this.props.pending) {
+            date = '';
+            rover = '';
+            status = '';
         } else {
-            return <ul className='menu' onClick={ this.toggleMenu }>
-                Change rover
-            </ul>
+            date = this.convertDate(this.props.info.date);
+            rover = this.props.info.rover;
+            status = this.props.info.status;
         }
+        return<div className='menu'>
+            <div className='info'>
+                Rover: {rover}<br/>
+                Landing Date: {date}<br/>
+                Mission status: {status}<br/>
+            </div>
+            <ul onClick={ this.toggleMenu }>
+                <p>Change rover</p>
+                <li onClick={ e => this.handleRoverChange('curiosity') }><p>Curiosity</p></li>
+                <li onClick={ e => this.handleRoverChange('opportunity') }><p>Opportunity</p></li>
+                <li onClick={ e => this.handleRoverChange('spirit') }><p>Spirit</p></li>
+            </ul>
+        </div>
     }
 }
