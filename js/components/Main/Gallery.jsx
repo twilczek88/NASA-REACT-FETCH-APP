@@ -13,6 +13,7 @@ export default class Gallery extends Component {
         const gallery = document.querySelector('.gallery');
         const step = window.innerWidth*0.85;
 
+
         if (gallery != null){
             gallery.style.left = `${0-(step * refreshedImage)}px`;
             this.setState({activeImage : refreshedImage});
@@ -68,25 +69,13 @@ export default class Gallery extends Component {
 
     componentWillReceiveProps(){
         this.refreshGallery(0);
+
     }
 
     render() {
         const images = this.props.links.map((image, i) => <Image id={ i } img={ image } key={ image.id }/>);
+        const spinner = <div className="spinner"/>
         const bubbles = this.drawBubbles();
-        const spinner = <div className="sk-fading-circle">
-            <div className="sk-circle1 sk-circle"></div>
-            <div className="sk-circle2 sk-circle"></div>
-            <div className="sk-circle3 sk-circle"></div>
-            <div className="sk-circle4 sk-circle"></div>
-            <div className="sk-circle5 sk-circle"></div>
-            <div className="sk-circle6 sk-circle"></div>
-            <div className="sk-circle7 sk-circle"></div>
-            <div className="sk-circle8 sk-circle"></div>
-            <div className="sk-circle9 sk-circle"></div>
-            <div className="sk-circle10 sk-circle"></div>
-            <div className="sk-circle11 sk-circle"></div>
-            <div className="sk-circle12 sk-circle"></div>
-        </div>
 
         if(this.props.pending) {
             return <section className='carousel-spinner'>
@@ -94,10 +83,10 @@ export default class Gallery extends Component {
             </section>
         } else {
             return <section className='carousel'>
-                <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> lewa </div>
-                <div className='arrow' onClick={ e => this.handleArrowClick('next') }> prawa </div>
+                <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> 	&#9664; </div>
                 <section className='gallery'>{ images }</section>
                 <div className='bubbles'>{ bubbles }</div>
+                <div className='arrow' onClick={ e => this.handleArrowClick('next') }> 	&#9654; </div>
             </section>
         }
     }
