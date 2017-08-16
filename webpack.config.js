@@ -1,6 +1,5 @@
 //Konfiguracja Webpack
 const path = require("path");
-const webpack = require('webpack');
 
 module.exports = {
     entry: ['whatwg-fetch', './js/input.jsx', './scss/bundle.scss'],
@@ -31,13 +30,7 @@ module.exports = {
                 loader: ['style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader']
             }
         ]
-    },
-    plugins: [
-    //npm i --save jquery
-    new webpack.ProvidePlugin({
-        $: 'jquery'
-    })
-  ]
+    }
 }
 
 //dev server
