@@ -5,14 +5,13 @@ export default class Gallery extends Component {
     constructor(props){
         super(props);
         this.state = {
-            activeImage: 0
+            activeImage: 0,
         }
     }
 
     refreshGallery = (refreshedImage = this.state.activeImage) => {
         const gallery = document.querySelector('.gallery');
         const step = window.innerWidth*0.85;
-
 
         if (gallery != null){
             gallery.style.left = `${0-(step * refreshedImage)}px`;
@@ -69,13 +68,14 @@ export default class Gallery extends Component {
 
     componentWillReceiveProps(){
         this.refreshGallery(0);
-
     }
 
     render() {
         const images = this.props.links.map((image, i) => <Image id={ i } img={ image } key={ image.id }/>);
         const spinner = <div className="spinner"/>
         const bubbles = this.drawBubbles();
+        const currentImage = this.state.activeImage+1;
+        const allImages = this.props.links.length;
 
         if(this.props.pending) {
             return <section className='carousel-spinner'>
@@ -83,10 +83,13 @@ export default class Gallery extends Component {
             </section>
         } else {
             return <section className='carousel'>
-                <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> 	&#9664; </div>
-                <section className='gallery'>{ images }</section>
+                <p className='count'>{currentImage}/{allImages}</p>
+                <div className='inner'>
+                    <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> 	&#9664; </div>
+                    <section className='gallery'>{ images }</section>
+                    <div className='arrow' onClick={ e => this.handleArrowClick('next') }> 	&#9654; </div>
+                </div>
                 <div className='bubbles'>{ bubbles }</div>
-                <div className='arrow' onClick={ e => this.handleArrowClick('next') }> 	&#9654; </div>
             </section>
         }
     }
