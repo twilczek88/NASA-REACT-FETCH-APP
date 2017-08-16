@@ -26,31 +26,56 @@ export default class Gallery extends Component {
         }
     }
 
+    stopGalleryAnimation = (time = 200) => {
+        const gallery = document.querySelector('.gallery');
+
+        gallery.style.transition = 'none';
+
+        const step = setTimeout(()=>{
+            gallery.style.transition = 'left .2s';
+        },time);
+    }
+
+    stopOtherAnimation = (time = 200) => {
+        const menu = document.querySelector('.menu').style;
+        const carousel = document.querySelector('.carousel').style;
+
+        menu.transition = 'none';
+        carousel.transition = 'none';
+
+        const step1 = setTimeout(()=>{
+            menu.transition = 'all .2s';
+            carousel.transition = 'all .2s';
+        },time);
+    }
+
     toggleMenu = () => {
         const condition = !this.state.isMenuShown;
         this.setState({ isMenuShown : condition });
 
-        const carousel = document.querySelector('.carousel');
-        const gallery = document.querySelector('.gallery');
+        const carousel = document.querySelector('.carousel').style;
+        const gallery = document.querySelector('.gallery').style;
         const articles = [...document.querySelectorAll('article')];
-        const menu = document.querySelector('.menu');
+        const menu = document.querySelector('.menu').style;
+
+        this.stopGalleryAnimation();
 
         if(condition) {
             articles.forEach(article => {
                 article.style.width = '85vw';
             });
-            carousel.style.width = '85vw';
-            carousel.style.left = '0';
-            menu.style.left = '0';
-            gallery.style.left = `${0-(window.innerWidth * 0.85 * this.state.activeImage)}px`;
+            carousel.width = '85vw';
+            carousel.left = '0';
+            menu.left = '0';
+            gallery.left = `${0-(window.innerWidth * 0.85 * this.state.activeImage)}px`;
         } else {
             articles.forEach(article => {
                 article.style.width = '100vw';
             });
-            carousel.style.width = '100vw';
-            carousel.style.left = '-15vw';
-            menu.style.left = '-15vw';
-            gallery.style.left = `${0-(window.innerWidth * this.state.activeImage)}px`;
+            carousel.width = '100vw';
+            carousel.left = '-15vw';
+            menu.left = '-15vw';
+            gallery.left = `${0-(window.innerWidth * this.state.activeImage)}px`;
         }
     }
 
@@ -97,12 +122,19 @@ export default class Gallery extends Component {
 
     componentDidMount() {
         window.addEventListener('resize', ()=>{
-            this.refreshGallery()
+            this.stopGalleryAnimation();
+            this.stopOtherAnimation();
+            this.refreshGallery();
         });
     }
 
     componentWillReceiveProps(){
         this.refreshGallery(0);
+    }
+
+    componentWillUnmount(){
+        clearTimeout(step);
+        clearTimeout(step1);
     }
 
     render() {
@@ -117,7 +149,7 @@ export default class Gallery extends Component {
             toggle = <div
                 className='toggle'
                 onClick = { this.toggleMenu }>
-                &#9664;
+                <svg width="1rem" height="1rem" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1037 1395l102-102q19-19 19-45t-19-45l-307-307 307-307q19-19 19-45t-19-45l-102-102q-19-19-45-19t-45 19l-454 454q-19 19-19 45t19 45l454 454q19 19 45 19t45-19zm627-499q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z" fill="#fff"/></svg>
             </div>
         } else {
             toggle = <div
