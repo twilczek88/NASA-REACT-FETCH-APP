@@ -20,10 +20,10 @@ export default class Menu extends Component {
     }
 
     render() {
-
         let date,
             rover,
-            status;
+            status,
+            toggle;
 
         if (this.props.pending) {
             date = '';
@@ -34,13 +34,14 @@ export default class Menu extends Component {
             rover = this.props.info.rover;
             status = this.props.info.status;
         }
+
         return<div className='menu'>
             <div className='info'>
                 Rover: {rover}<br/>
                 Landing Date: {date}<br/>
                 Mission status: {status}<br/>
             </div>
-            <ul onClick={ this.toggleMenu }>
+            <ul>
                 <p>Change rover</p>
                 <li onClick={ e => this.handleRoverChange('curiosity') }><p>Curiosity</p></li>
                 <li onClick={ e => this.handleRoverChange('opportunity') }><p>Opportunity</p></li>

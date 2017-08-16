@@ -6,16 +6,51 @@ export default class Gallery extends Component {
         super(props);
         this.state = {
             activeImage: 0,
+            isMenuShown: true
         }
     }
 
     refreshGallery = (refreshedImage = this.state.activeImage) => {
         const gallery = document.querySelector('.gallery');
-        const step = window.innerWidth*0.85;
+        let step;
+        if(this.state.isMenuShown){
+            step = window.innerWidth*0.85;
+        } else {
+            step = window.innerWidth;
+        }
 
         if (gallery != null){
             gallery.style.left = `${0-(step * refreshedImage)}px`;
             this.setState({activeImage : refreshedImage});
+            console.log(gallery.style.left, step);
+        }
+    }
+
+    toggleMenu = () => {
+        const condition = !this.state.isMenuShown;
+        this.setState({ isMenuShown : condition });
+
+        const carousel = document.querySelector('.carousel');
+        const gallery = document.querySelector('.gallery');
+        const articles = [...document.querySelectorAll('article')];
+        const menu = document.querySelector('.menu');
+
+        if(condition) {
+            articles.forEach(article => {
+                article.style.width = '85vw';
+            });
+            carousel.style.width = '85vw';
+            carousel.style.left = '0';
+            menu.style.left = '0';
+            gallery.style.left = `${0-(window.innerWidth * 0.85 * this.state.activeImage)}px`;
+        } else {
+            articles.forEach(article => {
+                article.style.width = '100vw';
+            });
+            carousel.style.width = '100vw';
+            carousel.style.left = '-15vw';
+            menu.style.left = '-15vw';
+            gallery.style.left = `${0-(window.innerWidth * this.state.activeImage)}px`;
         }
     }
 
@@ -76,14 +111,28 @@ export default class Gallery extends Component {
         const bubbles = this.drawBubbles();
         const currentImage = this.state.activeImage+1;
         const allImages = this.props.links.length;
+        let toggle;
+
+        if(this.state.isMenuShown){
+            toggle = <div
+                className='toggle'
+                onClick = { this.toggleMenu }>
+                &#9664;
+            </div>
+        } else {
+            toggle = <div
+                className='toggle'
+                onClick = { this.toggleMenu }>
+                    <svg width="1rem" height="1rem" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z" fill="#fff"/></svg>
+            </div>
+        }
 
         if(this.props.pending) {
-            return <section className='carousel-spinner'>
-                {spinner}
-            </section>
+            return <section className='carousel-spinner'>{spinner}</section>
         } else {
             return <section className='carousel'>
-                <p className='count'>{currentImage}/{allImages}</p>
+                { toggle }
+                <div className='count'>{currentImage}/{allImages}</div>
                 <div className='inner'>
                     <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> 	&#9664; </div>
                     <section className='gallery'>{ images }</section>
