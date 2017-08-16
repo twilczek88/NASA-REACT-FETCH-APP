@@ -26,7 +26,7 @@ export default class Gallery extends Component {
         }
     }
 
-    stopGalleryAnimation = (time = 200) => {
+    stopGalleryAnimation = (time = 1) => {
         const gallery = document.querySelector('.gallery');
 
         gallery.style.transition = 'none';
@@ -36,9 +36,9 @@ export default class Gallery extends Component {
         },time);
     }
 
-    stopOtherAnimation = (time = 200) => {
+    stopOtherAnimation = (time = 1) => {
         const menu = document.querySelector('.menu').style;
-        const carousel = document.querySelector('.carousel').style;
+        const carousel = document.querySelector('[class^="carousel"]').style;
 
         menu.transition = 'none';
         carousel.transition = 'none';
@@ -53,7 +53,7 @@ export default class Gallery extends Component {
         const condition = !this.state.isMenuShown;
         this.setState({ isMenuShown : condition });
 
-        const carousel = document.querySelector('.carousel').style;
+        const carousel = document.querySelector('[class^="carousel"]').style;
         const gallery = document.querySelector('.gallery').style;
         const articles = [...document.querySelectorAll('article')];
         const menu = document.querySelector('.menu').style;
@@ -88,6 +88,7 @@ export default class Gallery extends Component {
                 if(image != 0) {
                     this.refreshGallery(image-1);
                 } else {
+                    // this.stopGalleryAnimation();
                     this.refreshGallery(maxImage);
                 }
             } break;
@@ -95,6 +96,7 @@ export default class Gallery extends Component {
                 if (image != maxImage){
                     this.refreshGallery(image+1);
                 } else {
+                    // this.stopGalleryAnimation();
                     this.refreshGallery(0);
                 }
             } break;
@@ -160,7 +162,9 @@ export default class Gallery extends Component {
         }
 
         if(this.props.pending) {
-            return <section className='carousel-spinner'>{spinner}</section>
+            return <section className='carousel-spinner'>
+                { spinner }
+            </section>
         } else {
             return <section className='carousel'>
                 { toggle }
