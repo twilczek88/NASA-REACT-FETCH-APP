@@ -9,13 +9,13 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pending: true,
-            links: [],
-            rover: 'curiosity',
-            info : {
-                rover : '',
-                date : '',
-                status : ''
+            pending : true,
+            links   : [],
+            rover   : 'curiosity',
+            info    : {
+                rover   : '',
+                date    : '',
+                status  : ''
             }
         }
     }
@@ -59,8 +59,13 @@ export default class Main extends Component {
     render() {
         console.log(this.state.info);
         return <main>
-            <Menu changeRover = { this.changeRover } info = { this.state.info } pending = { this.state.pending }/>
-            <Gallery links = { this.state.links } pending = { this.state.pending }/>
+            <Menu
+                changeRover = { this.changeRover }
+                info = { this.state.info }
+                pending = { this.state.pending }/>
+            <Gallery
+                links = { this.state.links }
+                pending = { this.state.pending }/>
         </main>
     }
 }

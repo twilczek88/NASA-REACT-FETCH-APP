@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 import api from '../utilities/api.js';
-import Header from './Layout/Header.jsx';
-import Footer from './Layout/Footer.jsx';
 import Welcome from './Welcome.jsx';
 import Main from './Main.jsx'
 
@@ -23,7 +21,6 @@ export default class Layout extends Component {
         if (this.state.start) {
             return <div className='wrapper'>
                 <Main/>
-                <Footer/>
             </div>
         } else {
             return <Welcome onStart = {this.onStart}/>
