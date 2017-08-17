@@ -1,17 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-
-import Layout from './components/Layout.jsx';
-
-class App extends Component {
-    render() {
-        return <Layout/>
-    }
-}
+import Main from './components/Main.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
-        <App/>,
+        <Main/>,
         document.querySelector('#app')
     );
 });
