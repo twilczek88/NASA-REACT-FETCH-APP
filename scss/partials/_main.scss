@@ -1,85 +1,143 @@
 main {
     display: flex;
-    flex-grow: 1;
-}
-
-.menu {
-    width: 15vw;
-}
-
-[class^='carousel'] {
-    z-index: 0;
-    // border: 1px solid white;
-    width: 85vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 1;
-    overflow: hidden;
+    flex-direction: row;
     position: relative;
+    // display: flex;
+    align-content: stretch;
+    height: 100vh;
+}
+[class^='carousel'] {
+    transition: all .2s;
+
+    color: #fff; //color bright
+    background: #343434; //dark color
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    left: 0;
+    width: 85vw; //important!
+    position: relative;
+    overflow: hidden;
 }
 .carousel-spinner {
     justify-content: center;
     align-items: center;
-}
-.gallery{
-    z-index: 0;
-    transition: all 0.2s;
-    // border: 1px solid red;
-    height: 100%;
     flex-grow: 1;
+}
+.inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.gallery {
     display: flex;
     position: absolute;
-    left:0px;
-}
-
-article{
-    display: flex;
-    width: 85vw;
-    // border: 1px solid blue;
-    justify-content: center;
-
-    .container{
-        // border: 1px solid purple;
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        flex-flow: column;
-    }
-}
-.image{
-    // border: 1px green solid;
-    min-width: 320px;
-    min-height: 50px;
-    overflow: hidden;
-}
-
-
-.arrow{
-    // flex-grow: 1;
-    // flex: 1;
-    z-index: 1;
+    z-index: 0;
+    left: 0;
     align-self: center;
+    transition: left .2s;
 }
-
-
-.bubbles {
-    // z-index: 5;
+article {
     display: flex;
-    position: absolute;
-    align-self: flex-start;
-    [class^='bubble'] {
-        transition: all 0.2s;
-        background: gray;
-        border-radius: 50%;
-        width: .75rem;
-        height: .75rem;
+    justify-content: center;
+    align-items: center;
+    width: 85vw; //important!
+    left: 0;
+
+    // transition: all .2s;
+
+
+}
+.container{
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    // align-content: center;
+    padding: .5rem;
+    background: rgba(0,0,0, .5); //darker color
+    box-shadow: 7.5px 7.5px 10px rgba(0,0,0, .75);
+    p {
+        align-self: flex-start;
     }
-    .bubble:hover {
-        background: darkgray;
+    img {
+        max-height: 800px;
+        max-width: 800px;
+        min-width: 340px;
+        overflow: hidden;
+        user-select: none;
+    }
+}
+.arrow {
+    background: rgba(0,0,0, .5); //darker color
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    height: 200px;
+    z-index: 1;
+    user-select: none;
+    &:hover{
         cursor: pointer;
     }
-    [class^='bubble-active'] {
-        background: white;
+}
+.bubbles {
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    flex-wrap: wrap;
+    z-index: 2;
+    width: 100%;
+    padding: 5px 10%;
+    background: rgba(0,0,0, .5); //darker color
+    [class^='bubble'] {
+        align-self: center;
+        margin: 2px;
+        transition: all .5s;
+        background: rgba(255, 255, 255, .25); //color
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+    }
+    .bubble:hover {
+        background: rgba(255, 255, 255, .5); //color
+        cursor: pointer;
+    }
+    .bubble-active {
+        background: rgb(255, 255, 255); //color
+    }
+}
+
+.count {
+    z-index: 2;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    display: flex;
+    justify-content: center;
+    // padding: .5rem 0;
+    background: rgba(0,0,0, .5);
+}
+
+.toggle {
+    transition: background-color .2s;
+    z-index: 5;
+    color: white;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none;
+    padding: .5rem;
+    height: 2rem;
+    &:hover {
+        cursor: pointer;
+        background: hsl(0,0, 50)
     }
 }

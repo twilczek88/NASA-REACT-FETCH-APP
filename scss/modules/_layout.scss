@@ -1,15 +1,8 @@
 html {
-    // overflow: hidden;
+    overflow: hidden;
 }
 
 body {
-    background: black;
-    color: white;
-}
-
-.wrapper {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    height: 100vh;
+    background: darken(white, 25);
+    font-family: sans-serif;
 }

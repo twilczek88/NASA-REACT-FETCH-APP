@@ -1,0 +1,35 @@
+.menu {
+    position: relative;
+    width: 15vw;
+    background: hsl(0,0,50);
+    left: 0;
+    transition: all .2s;
+}
+
+.info {
+    padding: .5rem;
+}
+
+.menu ul {
+    user-select: none;
+    &:hover {
+        cursor: default;
+    }
+    p {
+        padding: .5rem;
+    }
+    li {
+        transition: all .5s;
+        border-top: black;
+        &:hover, &.active:hover{
+            cursor: pointer;
+            background: white;
+        }
+        &:last-child{
+            border-bottom: black;
+        }
+        &.active {
+            background-color: hsl(0,0,75);
+        }
+    }
+}
