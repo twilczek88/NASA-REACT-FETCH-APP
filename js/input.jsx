@@ -4,7 +4,7 @@ import Main from './components/Main.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
-        <Main/>,
+        <div className='wrapper'><Main/></div>,
         document.querySelector('#app')
     );
 });

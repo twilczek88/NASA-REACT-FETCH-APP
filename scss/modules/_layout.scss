@@ -6,3 +6,9 @@ body {
     background: darken(white, 25);
     font-family: sans-serif;
 }
+
+.wrapper {
+    display: flex;
+    align-content: stretch;
+    height: 100vh;
+}
