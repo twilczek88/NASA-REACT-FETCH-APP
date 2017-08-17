@@ -20,6 +20,15 @@ export default class Menu extends Component {
     }
 
     render() {
+        const rovers = ['Curiosity', 'Opportunity', 'Spirit']
+        .map((rover, i) => {
+            if(this.props.rover == rover.toLowerCase()){
+                return <li className='active' key ={ i }><p>{rover}</p></li>
+            } else {
+                return <li onClick={ e => this.handleRoverChange(rover.toLowerCase()) } key = { i }><p>{rover}</p></li>
+            }
+        });
+
         let date,
             rover,
             status,
@@ -43,9 +52,7 @@ export default class Menu extends Component {
             </div>
             <ul>
                 <p>Change rover</p>
-                <li onClick={ e => this.handleRoverChange('curiosity') }><p>Curiosity</p></li>
-                <li onClick={ e => this.handleRoverChange('opportunity') }><p>Opportunity</p></li>
-                <li onClick={ e => this.handleRoverChange('spirit') }><p>Spirit</p></li>
+                { rovers }
             </ul>
         </div>
     }

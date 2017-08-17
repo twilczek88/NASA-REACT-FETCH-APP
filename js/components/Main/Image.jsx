@@ -8,6 +8,14 @@ export default class Image extends Component {
         }
     }
 
+    refresh = () => {
+        if(typeof this.props.refresh == 'function'){
+            this.props.refresh();
+        } else {
+            console.error('dupa');
+        }
+    }
+
     convertDate = date => {
         date = date.split('-');
         return new Date(
@@ -17,15 +25,22 @@ export default class Image extends Component {
         .toDateString();
     }
 
+    componentDidMount(){
+        this.refresh();
+    }
+
+// const startDate = this.convertDate(img.rover.landing_date);
+
     render(){
         const img = this.props.img;
-        const style = {
-        };
+        const spinner = <div className="spinner"/>
+
         const photoDate = this.convertDate(img.earth_date);
-        const startDate = this.convertDate(img.rover.landing_date);
+
         return <article>
             <div className='container'>
-                <div className='image' style={style}><a href={img.img_src} target='_blank'><img src={img.img_src}/></a></div>
+                <div className='image'><a href={img.img_src} target='_blank'><img src={img.img_src}/></a></div>
+                {/* spinner */}
                 <p>
                     {photoDate} <br/>
                     {img.camera.full_name}

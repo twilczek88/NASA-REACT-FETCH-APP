@@ -12,21 +12,25 @@ export default class Gallery extends Component {
 
     refreshGallery = (refreshedImage = this.state.activeImage) => {
         const gallery = document.querySelector('.gallery');
+        const articles = [...document.querySelectorAll('article')];
         let step;
         if(this.state.isMenuShown){
-            step = window.innerWidth*0.85;
+            step = window.innerWidth * 0.85;
         } else {
             step = window.innerWidth;
         }
 
-        if (gallery != null){
+        if (gallery != null || article != null){
             gallery.style.left = `${0-(step * refreshedImage)}px`;
+            articles.forEach(article => {
+                article.style.width = `${step}px`;
+            });
             this.setState({activeImage : refreshedImage});
-            console.log(gallery.style.left, step);
+            // console.log(articles[0]);
         }
     }
 
-    stopGalleryAnimation = (time = 1) => {
+    stopGalleryAnimation = (time = 10) => {
         const gallery = document.querySelector('.gallery');
 
         gallery.style.transition = 'none';
@@ -36,7 +40,7 @@ export default class Gallery extends Component {
         },time);
     }
 
-    stopOtherAnimation = (time = 1) => {
+    stopOtherAnimation = (time = 10) => {
         const menu = document.querySelector('.menu').style;
         const carousel = document.querySelector('[class^="carousel"]').style;
 
@@ -140,7 +144,7 @@ export default class Gallery extends Component {
     }
 
     render() {
-        const images = this.props.links.map((image, i) => <Image id={ i } img={ image } key={ image.id }/>);
+        const images = this.props.links.map((image, i) => <Image id={ i } img={ image } refresh={ this.refreshGallery } key={ image.id }/>);
         const spinner = <div className="spinner"/>
         const bubbles = this.drawBubbles();
         const currentImage = this.state.activeImage+1;
@@ -163,7 +167,12 @@ export default class Gallery extends Component {
 
         if(this.props.pending) {
             return <section className='carousel-spinner'>
+                <div className='count'/>
+                { toggle }
                 { spinner }
+                <div className='inner'>
+                    <section className='gallery'><article/></section>
+                </div>
             </section>
         } else {
             return <section className='carousel'>

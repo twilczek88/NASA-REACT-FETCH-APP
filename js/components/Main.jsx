@@ -57,9 +57,9 @@ export default class Main extends Component {
     }
 
     render() {
-        console.log(this.state.info);
         return <main>
             <Menu
+                rover = { this.state.rover }
                 changeRover = { this.changeRover }
                 info = { this.state.info }
                 pending = { this.state.pending }/>
