@@ -1,9 +1,9 @@
-#NASA-REACT-MARS-APP
+# NASA-REACT-MARS-APP
 
 Simple picture gallery filled with most recent Mars photos.
 Pictures are fetched from nasa.gov.
 
-##Technologies used:
+## Technologies used:
 React,
 Vanilla JS,
 
