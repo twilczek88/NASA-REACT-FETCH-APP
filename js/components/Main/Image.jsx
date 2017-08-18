@@ -40,7 +40,7 @@ export default class Image extends Component {
 
         return <article>
             <div className='container'>
-                <div className='image'><a href={source} target='_blank'><img src={img.img_src}/></a></div>
+                <div className='image'><a href={source} target='_blank'><img src={source}/></a></div>
                 {/* spinner */}
                 <p>
                     {photoDate} <br/>

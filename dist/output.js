@@ -10814,7 +10814,7 @@ var Image = function (_Component) {
                         _react2.default.createElement(
                             'a',
                             { href: source, target: '_blank' },
-                            _react2.default.createElement('img', { src: img.img_src })
+                            _react2.default.createElement('img', { src: source })
                         )
                     ),
                     _react2.default.createElement(
