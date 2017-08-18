@@ -10797,6 +10797,7 @@ var Image = function (_Component) {
         key: 'render',
         value: function render() {
             var img = this.props.img;
+            var source = 'https://' + img.img_src.slice(7, img.img_src.length);
             var spinner = _react2.default.createElement('div', { className: 'spinner' });
 
             var photoDate = this.convertDate(img.earth_date);
@@ -10812,7 +10813,7 @@ var Image = function (_Component) {
                         { className: 'image' },
                         _react2.default.createElement(
                             'a',
-                            { href: img.img_src, target: '_blank' },
+                            { href: source, target: '_blank' },
                             _react2.default.createElement('img', { src: img.img_src })
                         )
                     ),

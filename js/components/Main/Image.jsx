@@ -33,13 +33,14 @@ export default class Image extends Component {
 
     render(){
         const img = this.props.img;
+        const source = `https://${img.img_src.slice(7,img.img_src.length)}`;
         const spinner = <div className="spinner"/>
 
         const photoDate = this.convertDate(img.earth_date);
 
         return <article>
             <div className='container'>
-                <div className='image'><a href={img.img_src} target='_blank'><img src={img.img_src}/></a></div>
+                <div className='image'><a href={source} target='_blank'><img src={img.img_src}/></a></div>
                 {/* spinner */}
                 <p>
                     {photoDate} <br/>
