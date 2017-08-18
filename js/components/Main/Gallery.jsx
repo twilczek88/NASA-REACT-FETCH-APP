@@ -30,7 +30,7 @@ export default class Gallery extends Component {
         }
     }
 
-    stopGalleryAnimation = (time = 10) => {
+    stopGalleryAnimation = (time = 200) => {
         const gallery = document.querySelector('.gallery');
 
         gallery.style.transition = 'none';
@@ -40,7 +40,7 @@ export default class Gallery extends Component {
         },time);
     }
 
-    stopOtherAnimation = (time = 10) => {
+    stopOtherAnimation = (time = 200) => {
         const menu = document.querySelector('.menu').style;
         const carousel = document.querySelector('[class^="carousel"]').style;
 
@@ -165,24 +165,27 @@ export default class Gallery extends Component {
             toggle = <div
                 className='toggle'
                 onClick = { this.toggleMenu }>
-                <svg className='icon' width="1rem" height="1rem" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1037 1395l102-102q19-19 19-45t-19-45l-307-307 307-307q19-19 19-45t-19-45l-102-102q-19-19-45-19t-45 19l-454 454q-19 19-19 45t19 45l454 454q19 19 45 19t45-19zm627-499q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z" fill="#fff"/></svg>
+                <svg className='icon' width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1037 1395l102-102q19-19 19-45t-19-45l-307-307 307-307q19-19 19-45t-19-45l-102-102q-19-19-45-19t-45 19l-454 454q-19 19-19 45t19 45l454 454q19 19 45 19t45-19zm627-499q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z" fill="#fff"/></svg>
             </div>
         } else {
             toggle = <div
                 className='toggle'
                 onClick = { this.toggleMenu }>
-                    <svg className='icon' width="1rem" height="1rem" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z" fill="#fff"/></svg>
+                    <svg className='icon' width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1664 1344v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45zm0-512v128q0 26-19 45t-45 19h-1408q-26 0-45-19t-19-45v-128q0-26 19-45t45-19h1408q26 0 45 19t19 45z" fill="#fff"/></svg>
             </div>
         }
 
         if(this.props.pending) {
             return <section className='carousel-spinner'>
-                <div className='count'/>
                 { toggle }
-                { spinner }
+                <div className='count'/>
                 <div className='inner'>
-                    <section className='gallery'><article/></section>
+                    <div className='arrow'> &#9664; </div>
+                    { spinner }
+                    <section className='gallery'/>
+                    <div className='arrow'>	&#9654; </div>
                 </div>
+                <div className='bubbles'>{ bubbles }</div>
             </section>
         } else {
             return <section className='carousel'>

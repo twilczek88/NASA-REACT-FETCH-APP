@@ -38,10 +38,10 @@ export default class Image extends Component {
 
         return <article>
             <div className='container'>
-                <div className='image'><a href={source} target='_blank'><img src={source}/></a></div>
+                <div className='image'><a href={ source } target='_blank'><img src={ source }/></a></div>
                 <p>
-                    {photoDate} <br/>
-                    {img.camera.full_name}
+                    { photoDate } <br/>
+                    { img.camera.full_name }
                 </p>
             </div>
         </article>

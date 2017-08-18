@@ -19,17 +19,16 @@ main {
     overflow: hidden;
 }
 .carousel-spinner {
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+    justify-content: space-between;
+    // flex-grow: 1;
 }
+
 .inner {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    flex-grow: 1;
+    height: 100%;
 }
 
 .gallery {
@@ -37,28 +36,28 @@ main {
     position: absolute;
     z-index: 0;
     left: 0;
-    align-self: center;
+    align-items: center;
+    height: 100%;
     transition: left .2s;
 }
 article {
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
+    align-self: center;
     width: 85vw; //important!
     left: 0;
-
-    // transition: all .2s;
 
 
 }
 .container{
-    align-self: center;
-
     display: flex;
     flex-direction: column;
-    // justify-content: center;
+    justify-content: center;
     align-items: center;
-    // align-content: center;
+    align-content: center;
+    align-self: center;
     padding: .5rem;
     background: rgba(0,0,0, .5); //darker color
     box-shadow: 7.5px 7.5px 10px rgba(0,0,0, .75);
@@ -76,6 +75,7 @@ article {
 .arrow {
     background: rgba(0,0,0, .5); //darker color
     display: flex;
+    align-self: center;
     align-items: center;
     justify-content: center;
     min-width: 50px;
