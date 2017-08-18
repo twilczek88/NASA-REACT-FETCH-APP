@@ -29,11 +29,9 @@ export default class Image extends Component {
         this.refresh();
     }
 
-// const startDate = this.convertDate(img.rover.landing_date);
-
     render(){
         const img = this.props.img;
-        const source = `https://${img.img_src.slice(7,img.img_src.length)}`;
+        const source = img.img_src.replace('http', 'https');
         const spinner = <div className="spinner"/>
 
         const photoDate = this.convertDate(img.earth_date);
@@ -41,7 +39,6 @@ export default class Image extends Component {
         return <article>
             <div className='container'>
                 <div className='image'><a href={source} target='_blank'><img src={source}/></a></div>
-                {/* spinner */}
                 <p>
                     {photoDate} <br/>
                     {img.camera.full_name}
