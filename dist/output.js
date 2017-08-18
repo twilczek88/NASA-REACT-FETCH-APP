@@ -10602,6 +10602,18 @@ var Gallery = function (_Component) {
                 _this2.stopOtherAnimation();
                 _this2.refreshGallery();
             });
+            document.addEventListener('keydown', function (e) {
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        {
+                            _this2.handleArrowClick('previous');
+                        }break;
+                    case 'ArrowRight':
+                        {
+                            _this2.handleArrowClick('next');
+                        }
+                }
+            });
         }
     }, {
         key: 'componentWillReceiveProps',

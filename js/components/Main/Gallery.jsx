@@ -132,6 +132,16 @@ export default class Gallery extends Component {
             this.stopOtherAnimation();
             this.refreshGallery();
         });
+        document.addEventListener('keydown', e => {
+            switch(e.key){
+                case 'ArrowLeft': {
+                    this.handleArrowClick('previous');
+                } break;
+                case 'ArrowRight': {
+                    this.handleArrowClick('next');
+                }
+            }
+        });
     }
 
     componentWillReceiveProps(){
