@@ -26,13 +26,11 @@ export default class Gallery extends Component {
                 article.style.width = `${step}px`;
             });
             this.setState({activeImage : refreshedImage});
-            // console.log(articles[0]);
         }
     }
 
     stopGalleryAnimation = (time = 200) => {
         const gallery = document.querySelector('.gallery');
-
         gallery.style.transition = 'none';
 
         const step = setTimeout(()=>{
@@ -178,19 +176,18 @@ export default class Gallery extends Component {
         if(this.props.pending) {
             return <section className='carousel-spinner'>
                 { toggle }
-                <div className='count'/>
+                <div className='count'>{ toggle }</div>
                 <div className='inner'>
                     <div className='arrow'> &#9664; </div>
                     { spinner }
                     <section className='gallery'/>
                     <div className='arrow'>	&#9654; </div>
                 </div>
-                <div className='bubbles'>{ bubbles }</div>
+                <div className='bubbles'/>
             </section>
         } else {
             return <section className='carousel'>
-                { toggle }
-                <div className='count'>{currentImage}/{allImages}</div>
+                <div className='count'>{ toggle }{currentImage}/{allImages}</div>
                 <div className='inner'>
                     <div className='arrow' onClick={ e => this.handleArrowClick('previous') }> 	&#9664; </div>
                     <section className='gallery'>{ images }</section>

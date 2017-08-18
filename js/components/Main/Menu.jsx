@@ -31,8 +31,7 @@ export default class Menu extends Component {
 
         let date,
             rover,
-            status,
-            toggle;
+            status;
 
         if (this.props.pending) {
             date = '';
